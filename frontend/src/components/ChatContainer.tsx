@@ -18,7 +18,6 @@ interface Message {
   message: string;
 }
 
-
 type ChatContainerProps = {
   messages: Message[];
   username: string;
@@ -44,11 +43,13 @@ export default function ChatContainer({
   });
 
   return (
-    <div className="flex p-4 flex-col border md:w-1/3 h-screen w-auto lg:w-1/2 rounded-[1.75rem] bg-[#000000] text-gray-100">
+    <div className="flex p-4 flex-col border h-screen md:w- lg:w-1/2 w-auto rounded-[1.75rem] bg-black/50 backdrop-blur-sm overflow-hidden text-gray-100">
       <header className="flex items-center justify-between p-1 border-b border-border">
         <div className="flex items-center space-x-1">
           <Hash className="w-5 h-5 text-primary" />
-          <h1 className="text-white font-semibold font-mono lg:text-xl">{roomId}</h1>
+          <h1 className="text-white font-semibold font-mono lg:text-xl">
+            {roomId}
+          </h1>
         </div>
         <div className="flex items-center space-x-4">
           <Users className="w-5 h-5 text-gray-400" />
@@ -60,7 +61,7 @@ export default function ChatContainer({
         </div>
       </header>
 
-      <ScrollArea className="flex-grow">
+      <ScrollArea className="flex-grow overflow-y-auto">
         <div className="p-4 space-y-6">
           {messages.map((msg, index) => (
             <div key={index} className="space-y-2">
@@ -84,7 +85,7 @@ export default function ChatContainer({
             <PlusCircle className="w-5 h-5" />
           </Button>
           <Input
-          className="rounded-xl p-5"
+            className="rounded-xl p-5"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder="Type a message..."
@@ -111,7 +112,6 @@ export default function ChatContainer({
               />
             </svg>
           </Button>
-          
         </div>
       </div>
     </div>

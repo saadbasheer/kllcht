@@ -17,22 +17,22 @@ export default function Container() {
 
   
   return (
-  
-      
-      <Card className="p-8 bg-[#000000]">
-        <CardHeader>
-          <CardTitle className="text-2xl font-mono ">Hey.</CardTitle>
-          <CardDescription>
-            Create or join chat rooms to begin chatting
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <MainForm/>
-        </CardContent>
-        <CardFooter className="flex justify-center -mt-2">
-          <p className="text-[0.8rem] text-muted-foreground text-center">Create and share your room with your friends</p>
-        </CardFooter>
-      </Card>
-  
+    <Card className="p-8 bg-black/80 overflow-hidden lg:w-[500px]">
+      <CardHeader>
+        <CardTitle className="text-2xl font-serif font-bold ">Hello</CardTitle>
+        <CardDescription className=" text-wrap text-muted-foreground">
+          /kllcht lets you create disposable communication channels, join or
+          create one to begin.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <MainForm />
+      </CardContent>
+      <CardFooter className="flex justify-center -mt-2">
+        <p className="text-[0.8rem] text-muted-foreground text-center">
+          Create and share your room with your friends
+        </p>
+      </CardFooter>
+    </Card>
   );
 }

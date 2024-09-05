@@ -8,7 +8,7 @@ export default function Background() {
       <FlickeringGrid
         squareSize={7}
         gridGap={7}
-        color="#C63C51"
+        color="#dc2626" /* #C63C51 */
         maxOpacity={0.3}
         flickerChance={0.05}
       />

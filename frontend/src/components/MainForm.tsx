@@ -103,7 +103,7 @@ export function MainForm() {
                       setUsername(e.target.value);
                       field.onChange(e);
                     }}
-                    placeholder="Enter your @username"
+                    placeholder="Enter a username or an alias"
                     type="text"
                   />
                 </FormControl>
