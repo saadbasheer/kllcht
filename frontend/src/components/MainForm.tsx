@@ -113,7 +113,7 @@ export function MainForm() {
                 <FormMessage />
               </FormItem>
               <FormItem>
-                <FormLabel>Enter Room ID</FormLabel>
+                <FormLabel>Enter Chat ID</FormLabel>
                 <div className="flex gap-2">
                   <RoomtIdInput roomId={roomId} setRoomId={setRoomId} />
                   <Button
