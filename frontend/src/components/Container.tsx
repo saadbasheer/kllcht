@@ -21,7 +21,7 @@ export default function Container() {
   return (
     <div className="">
       
-      <Card className="w-[500px] p-9">
+      <Card className="mx-auto max-w-md p-9">
         <CardHeader>
           <CardTitle className="text-2xl font-mono ">Hey there!</CardTitle>
           <CardDescription>

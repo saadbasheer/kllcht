@@ -4,8 +4,8 @@ import Container from "@/components/Container";
 export default function Home() {
 
   return (
-    <main className="flex bg-background min-h-screen flex-col items-center p-32">
-      <H1>TempChat</H1>
+    <main className="flex min-h-screen flex-col items-center p-32">
+      <H1>kill-chat</H1>
       <Container />
       
     </main>
