@@ -25,7 +25,11 @@ export default function Chat({
   const roomId = params.roomId;
 
   useEffect(() => {
-    const newSocket = io("http://localhost:3001");
+    const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+    if (!NEXT_PUBLIC_BACKEND_URL) {
+      throw new Error("NEXT_PUBLIC_BACKEND_URL is not set");
+    }
+    const newSocket = io(NEXT_PUBLIC_BACKEND_URL);
     setSocket(newSocket);
 
     newSocket.emit("joinRoom", { roomId, username });
@@ -36,7 +40,7 @@ export default function Chat({
 
     return () => {
       newSocket.close();
-    }; 
+    };
   }, [roomId, username]);
 
   const sendMessage = () => {
