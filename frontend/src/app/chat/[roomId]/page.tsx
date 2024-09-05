@@ -7,10 +7,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ChatContainer from "@/components/ChatContainer";
 import Footer from "@/components/Footer";
+import BlurFade from "@/components/magicui/blur-fade";
 
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-</svg>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  strokeWidth={1.5}
+  stroke="currentColor"
+  className="size-6"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+  />
+</svg>;
 
 interface Message {
   username: ReactNode;
@@ -64,8 +76,18 @@ export default function Chat({
 
   return (
     <div className="flex flex-col items-center justify-center h-screen py-20 lg:p-20 ">
-      <ChatContainer sendMessage={sendMessage} inputMessage={inputMessage} setInputMessage={setInputMessage} leaveRoom={leaveRoom}   roomId={roomId} username={username} messages={messages} />
-      <Footer/>
+ 
+        <ChatContainer
+          sendMessage={sendMessage}
+          inputMessage={inputMessage}
+          setInputMessage={setInputMessage}
+          leaveRoom={leaveRoom}
+          roomId={roomId}
+          username={username}
+          messages={messages}
+        />
+        <Footer />
+ 
     </div>
   );
 }

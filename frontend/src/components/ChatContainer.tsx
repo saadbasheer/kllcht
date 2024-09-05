@@ -44,7 +44,7 @@ export default function ChatContainer({
   });
 
   return (
-    <div className="flex p-4 flex-col h-screen w-auto lg:w-1/2 md:w-2/3 rounded-[2rem] border  bg-[#000000] text-gray-100">
+    <div className="flex p-4 flex-col md:w-1/3 h-screen w-auto lg:w-1/2 rounded-[2rem] border  bg-[#000000] text-gray-100">
       <header className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center space-x-2">
           <Hash className="w-5 h-5 text-accent" />

@@ -7,12 +7,10 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main className="flex h-screen flex-col  items-center p-32 ">
-      <BlurFade className="flex flex-col items-center">
-        <H1>kill/chat</H1>
-        <Container />
+      <BlurFade delay={0.5} className="flex flex-col items-center">
+        <H1>kll/chat</H1>
+        <Container /> <Footer />
       </BlurFade>
-      
-      <Footer/>
     </main>
   );
 }
