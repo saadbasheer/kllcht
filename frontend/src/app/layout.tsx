@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kll/Chat - Create disposable communication channels",
+  title: "kll/Chat - Create disposable communication channels",
   description: "Create disposable communication channels",
 };
 
@@ -21,12 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="h-screen">
-        <ThemeProvider attribute="class" defaultTheme="dark">
-          <Background />
-          {children}
-          <Toaster />
-        </ThemeProvider>{" "}</div>
+        <div>
+          <ThemeProvider attribute="class" defaultTheme="dark">
+            {children}
+            <Toaster />
+            <Background />
+          </ThemeProvider>{" "}
+        </div>
       </body>
     </html>
   );

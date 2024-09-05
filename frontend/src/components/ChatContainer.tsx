@@ -44,17 +44,16 @@ export default function ChatContainer({
   });
 
   return (
-    <div className="flex p-4 flex-col md:w-1/3 h-screen w-auto lg:w-1/2 rounded-[2rem] border  bg-[#000000] text-gray-100">
-      <header className="flex items-center justify-between p-4 border-b border-border">
-        <div className="flex items-center space-x-2">
-          <Hash className="w-5 h-5 text-accent" />
-          <h1 className="text-white font-semibold">{roomId}</h1>
+    <div className="flex p-4 flex-col border md:w-1/3 h-screen w-auto lg:w-1/2 rounded-[1.75rem] bg-[#000000] text-gray-100">
+      <header className="flex items-center justify-between p-1 border-b border-border">
+        <div className="flex items-center space-x-1">
+          <Hash className="w-5 h-5 text-primary" />
+          <h1 className="text-white font-semibold font-mono lg:text-xl">{roomId}</h1>
         </div>
         <div className="flex items-center space-x-4">
           <Users className="w-5 h-5 text-gray-400" />
           <span className="text-sm text-gray-400">32</span>
 
-          <Bookmark className="w-5 h-5 text-gray-400" />
           <Button variant="ghost" size="icon" className="text-gray-400">
             <MoreHorizontal className="w-5 h-5" />
           </Button>
@@ -94,6 +93,7 @@ export default function ChatContainer({
           <Button
             onClick={() => sendMessage(inputMessage)}
             size={"sm"}
+            variant="default"
             className="text-gray-400"
           >
             <svg
@@ -111,27 +111,7 @@ export default function ChatContainer({
               />
             </svg>
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => leaveRoom()}
-            className="text-gray-400"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-          </Button>
+          
         </div>
       </div>
     </div>

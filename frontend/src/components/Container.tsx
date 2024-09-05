@@ -12,18 +12,16 @@ import {
 
 
 export default function Container() {
-  function generateRoomID(length = 8) {
-    return Math.random().toString(36).substring(2, 2 + length);
-  }
+
 
 
   
   return (
-    <div className="">
+  
       
-      <Card className="mx-auto max-w-md p-9 bg-[#000000]">
+      <Card className="p-8 bg-[#000000]">
         <CardHeader>
-          <CardTitle className="text-2xl font-mono ">Hey there!</CardTitle>
+          <CardTitle className="text-2xl font-mono ">Hey.</CardTitle>
           <CardDescription>
             Create or join chat rooms to begin chatting
           </CardDescription>
@@ -35,6 +33,6 @@ export default function Container() {
           <p className="text-[0.8rem] text-muted-foreground text-center">Create and share your room with your friends</p>
         </CardFooter>
       </Card>
-    </div>
+  
   );
 }
