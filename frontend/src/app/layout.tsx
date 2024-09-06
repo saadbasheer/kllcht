@@ -21,13 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div>
-          <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="dark">
+          <Toaster />{" "}
+          <div className="relative min-h-screen">
             {children}
-            <Toaster />
-            <Background />
-          </ThemeProvider>{" "}
-        </div>
+            <Background />{" "}
+          </div>
+        </ThemeProvider>{" "}
       </body>
     </html>
   );

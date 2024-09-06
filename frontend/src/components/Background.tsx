@@ -4,7 +4,7 @@ import FlickeringGrid from "./ui/FlickeringGrid";
 
 export default function Background() {
   return (
-    <div className="-z-10 absolute inset-0">
+    <div className="fixed inset-0 z-[-1] w-full h-full overflow-hidden">
       <FlickeringGrid
         squareSize={7}
         gridGap={7}
