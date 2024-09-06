@@ -19,23 +19,27 @@ const rooms = {}; // Store users in each room
 io.on("connection", (socket) => {
   console.log("A user connected");
 
+  // Listen for joining room
   socket.on("joinRoom", ({ roomId, username }) => {
     socket.join(roomId);
 
+    socket.roomId = roomId;
+    socket.username = username;
     // Add user to the room
     if (!rooms[roomId]) {
       rooms[roomId] = [];
     }
-    rooms[roomId].push(username);
+    if (!rooms[roomId].includes(username)) {
+      rooms[roomId].push(username);
+    }
+
     console.log(`${username} joined room ${roomId}`);
 
-    // Notify the room about the user joining
-    socket.to(roomId).emit("systemMessage", `${username} has joined the room`);
-
-    // Broadcast the updated user list to the room
+    socket.to(roomId).emit("systemMessage", `${username} has left the room`);
     io.to(roomId).emit("roomData", { users: rooms[roomId] });
   });
 
+  // Listen for chat messages
   socket.on("chatMessage", ({ roomId, username, message }) => {
     // Broadcast the message to the room
     io.to(roomId).emit("message", { username, message });
@@ -50,16 +54,21 @@ io.on("connection", (socket) => {
       rooms[roomId] = rooms[roomId].filter((user) => user !== username);
     }
 
-    // Notify the room about the user leaving
     socket.to(roomId).emit("systemMessage", `${username} has left the room`);
-
-    // Broadcast the updated user list to the room
     io.to(roomId).emit("roomData", { users: rooms[roomId] });
   });
 
+  // Handle disconnection
   socket.on("disconnect", () => {
+    const { roomId, username } = socket;
+    if (roomId && username && rooms[roomId]) {
+      rooms[roomId] = rooms[roomId].filter((user) => user !== username);
+
+      socket.to(roomId).emit("systemMessage", `${username} has disconnected`);
+      io.to(roomId).emit("roomData", { users: rooms[roomId] });
+    }
+
     console.log("A user disconnected");
-    // You can implement logic here to handle user disconnects if needed
   });
 });
 
