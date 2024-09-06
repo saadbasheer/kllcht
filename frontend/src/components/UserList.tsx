@@ -64,7 +64,7 @@ export default function UserList({ usersInRoom }: { usersInRoom: any }) {
               {usersInRoom.map((user: string, index: number) => (
                 <div
                   key={index}
-                  className="px-4 py-2 text-sm text-foreground hover:bg-[#621212] hover:border cursor-pointer"
+                  className="px-4 py-2 text-sm text-foreground hover:bg-[#621212]/40 hover:border cursor-pointer"
                   role="menuitem"
                 >
                   {user}
