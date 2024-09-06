@@ -6,14 +6,12 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Hash,
-  Users,
-  Bookmark,
-  MoreHorizontal,
   PlusCircle,
 } from "lucide-react";
 
 import HyperText from "./ui/hyper-text";
 import CopyToClipboard from "./ui/CopyClip";
+import UserList from "./UserList";
 
 interface Message {
   username?: ReactNode;
@@ -32,12 +30,14 @@ type ChatContainerProps = {
   setInputMessage: React.Dispatch<React.SetStateAction<string>>;
   inputMessage: string;
   usersInRoom: string[];
+  killChat: () => void;
 };
 
 export default function ChatContainer({
   messages,
   usersInRoom,
   sendMessage,
+  killChat,
   roomId,
   setInputMessage,
   inputMessage,
@@ -58,7 +58,7 @@ export default function ChatContainer({
   });
 
   return (
-    <div className="flex flex-col p-4 border h-screen md:w- lg:w-1/2 w-auto rounded-[1.75rem] bg-black/70 overflow-hidden text-gray-100">
+    <div className="flex flex-col p-2 border h-[115vh] md:w- lg:w-1/2 w-auto rounded-[1.75rem] bg-black/70 overflow-hidden text-gray-100">
       <header className="flex items-center justify-between p-1 border-b border-border">
         <div className="flex items-center space-x-1">
           <Hash className="w-7 h-7 text-primary" aria-hidden="true" />
@@ -67,18 +67,10 @@ export default function ChatContainer({
           </h1>
           <CopyToClipboard text={roomId} />
         </div>
-        <div className="flex items-center space-x-4">
-          <Users className="w-5 h-5 text-gray-400" aria-hidden="true" />
-          <span className="text-sm text-gray-400">{usersInRoom.length}</span>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-gray-400"
-            aria-label="More options"
-          >
-            <MoreHorizontal className="w-5 h-5" aria-hidden="true" />
-          </Button>
+        <div className="flex items-center p-1 space-x-4">
+          <div>
+            <UserList usersInRoom={usersInRoom} />
+          </div>
         </div>
       </header>
 
@@ -134,10 +126,10 @@ export default function ChatContainer({
             <PlusCircle className="w-5 h-5" aria-hidden="true" />
           </Button>
           <Input
-            className="rounded-xl p-4 bg-black/40 w-full"
+            className="rounded-md bg-black/40 w-full"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Type a message..."
+            placeholder="Dont be evil..."
             onKeyDown={(e) => e.key === "Enter" && sendMessage(inputMessage)}
           />
           <Button

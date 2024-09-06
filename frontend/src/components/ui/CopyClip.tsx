@@ -47,7 +47,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
         {copied ? <CheckMark /> : <ClipBoard />}
       </Button>
       {showTooltip && (
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 bg-black/70 text-white text-xs rounded-xl whitespace-nowrap">
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 bg-black/70 text-white text-xs rounded-xl whitespace-nowrap z-10">
           {copied ? "Copied!" : "Copy hash"}
         </div>
       )}

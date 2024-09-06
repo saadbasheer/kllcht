@@ -22,9 +22,9 @@ io.on("connection", (socket) => {
   // Listen for joining room
   socket.on("joinRoom", ({ roomId, username }) => {
     socket.join(roomId);
-
     socket.roomId = roomId;
     socket.username = username;
+
     // Add user to the room
     if (!rooms[roomId]) {
       rooms[roomId] = [];
@@ -34,8 +34,7 @@ io.on("connection", (socket) => {
     }
 
     console.log(`${username} joined room ${roomId}`);
-
-    socket.to(roomId).emit("systemMessage", `${username} has left the room`);
+    socket.to(roomId).emit("systemMessage", `${username} has joined the room`);
     io.to(roomId).emit("roomData", { users: rooms[roomId] });
   });
 
@@ -45,6 +44,7 @@ io.on("connection", (socket) => {
     io.to(roomId).emit("message", { username, message });
   });
 
+  // Listen for leaveRoom event
   socket.on("leaveRoom", ({ roomId, username }) => {
     socket.leave(roomId);
     console.log(`${username} left room ${roomId}`);
@@ -58,12 +58,43 @@ io.on("connection", (socket) => {
     io.to(roomId).emit("roomData", { users: rooms[roomId] });
   });
 
+  // Listen for killChat event
+  socket.on("killChat", ({ roomId, username }) => {
+    console.log(`${username} initiated killchat for room ${roomId}`);
+
+    // Send system message to the room
+    io.to(roomId).emit(
+      "systemMessage",
+      `${username} has initiated killchat. This chat will now be disposed.`
+    );
+
+    // Notify all clients in the room to redirect or handle chat termination
+    io.to(roomId).emit("chatKilled");
+
+    // Remove all users from the room
+    if (rooms[roomId]) {
+      rooms[roomId].forEach((user) => {
+        const userSocket = getUserSocket(user);
+        if (userSocket) {
+          userSocket.leave(roomId);
+        }
+      });
+      delete rooms[roomId]; // Clear the room
+    }
+  });
+
+  // Helper function to get a user's socket by username
+  function getUserSocket(username) {
+    return Array.from(io.sockets.sockets.values()).find(
+      (socket) => socket.username === username
+    );
+  }
+
   // Handle disconnection
   socket.on("disconnect", () => {
     const { roomId, username } = socket;
     if (roomId && username && rooms[roomId]) {
       rooms[roomId] = rooms[roomId].filter((user) => user !== username);
-
       socket.to(roomId).emit("systemMessage", `${username} has disconnected`);
       io.to(roomId).emit("roomData", { users: rooms[roomId] });
     }

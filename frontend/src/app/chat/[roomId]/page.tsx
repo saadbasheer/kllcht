@@ -29,6 +29,16 @@ export default function Chat({
   const username = searchParams.get("username") ?? "";
   const roomId = params.roomId;
 
+
+  const killChat = () => {
+    if (socket) {
+      socket.emit("killChat", { roomId, username });
+    }
+  };
+
+
+
+
   useEffect(() => {
     const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
     if (!NEXT_PUBLIC_BACKEND_URL) {
@@ -57,6 +67,21 @@ export default function Chat({
       }
     );
 
+    const sendMessage = () => {
+      if (inputMessage.trim() && socket) {
+        if (inputMessage.toLowerCase() === "/kllchat") {
+          killChat();
+        } else {
+          socket.emit("chatMessage", {
+            roomId,
+            username,
+            message: inputMessage,
+          });
+        }
+        setInputMessage("");
+      }
+    };
+
     // Listen for system messages
     newSocket.on("systemMessage", (message: string) => {
       setMessages((prevMessages) => [
@@ -72,6 +97,24 @@ export default function Chat({
       ]);
     });
 
+
+       newSocket.on("chatKilled", () => {
+         setMessages((prevMessages) => [
+           ...prevMessages,
+           {
+             message:
+               "This chat has been killed. You will be redirected shortly.",
+             isSystemMessage: true,
+             time: new Date().toLocaleTimeString("en-US", {
+               hour: "2-digit",
+               minute: "2-digit",
+             }),
+           },
+         ]);
+         setTimeout(() => {
+           router.push("/");
+         }, 5000); // Redirect after 5 seconds
+       });
 
     // Listen for user list updates
     newSocket.on("roomData", ({ users }) => {
@@ -101,7 +144,7 @@ export default function Chat({
     <div className="flex flex-col items-center justify-center h-screen py-20 lg:p-20">
       <Button
         variant="outline"
-        onClick={() => leaveRoom()}
+        onClick={killChat}
         className="text-primary mb-4"
       >
         <svg
@@ -127,6 +170,7 @@ export default function Chat({
         roomId={roomId}
         username={username}
         messages={messages}
+        killChat={killChat}
         usersInRoom={usersInRoom}
       />
       <Footer />
