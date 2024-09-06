@@ -12,7 +12,7 @@ interface Message {
   message: string;
   isCurrentUser?: boolean;
   time: string;
-  isSystemMessage?: boolean; 
+  isSystemMessage?: boolean;
 }
 
 export default function Chat({
@@ -24,6 +24,7 @@ export default function Chat({
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState("");
   const router = useRouter();
+  const [usersInRoom, setUsersInRoom] = useState<string[]>([]);
   const searchParams = useSearchParams();
   const username = searchParams.get("username") ?? "";
   const roomId = params.roomId;
@@ -69,6 +70,12 @@ export default function Chat({
           }),
         },
       ]);
+    });
+
+
+    // Listen for user list updates
+    newSocket.on("roomData", ({ users }) => {
+      setUsersInRoom(users); // Update the user list
     });
 
     return () => {
@@ -120,6 +127,7 @@ export default function Chat({
         roomId={roomId}
         username={username}
         messages={messages}
+        usersInRoom={usersInRoom}
       />
       <Footer />
     </div>

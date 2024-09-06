@@ -1,7 +1,6 @@
 "use client";
 
 import React, { ReactNode, useEffect, useRef } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -12,7 +11,9 @@ import {
   MoreHorizontal,
   PlusCircle,
 } from "lucide-react";
-import CopyToClipboard from "@/components/CopyClip";
+
+import HyperText from "./ui/hyper-text";
+import CopyToClipboard from "./ui/CopyClip";
 
 interface Message {
   username?: ReactNode;
@@ -30,13 +31,13 @@ type ChatContainerProps = {
   roomId: string;
   setInputMessage: React.Dispatch<React.SetStateAction<string>>;
   inputMessage: string;
+  usersInRoom: string[];
 };
 
 export default function ChatContainer({
   messages,
-  username,
+  usersInRoom,
   sendMessage,
-  leaveRoom,
   roomId,
   setInputMessage,
   inputMessage,
@@ -62,13 +63,13 @@ export default function ChatContainer({
         <div className="flex items-center space-x-1">
           <Hash className="w-7 h-7 text-primary" aria-hidden="true" />
           <h1 className="text-white font-semibold font-mono lg:text-xl">
-            {roomId}
+            <HyperText text={roomId} />
           </h1>
           <CopyToClipboard text={roomId} />
         </div>
         <div className="flex items-center space-x-4">
           <Users className="w-5 h-5 text-gray-400" aria-hidden="true" />
-          <span className="text-sm text-gray-400">32</span>
+          <span className="text-sm text-gray-400">{usersInRoom.length}</span>
 
           <Button
             variant="ghost"

@@ -15,12 +15,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RoomtIdInput } from "./RoomIdInput";
+import { RoomtIdInput } from "./ui/RoomIdInput";
 import { Separator } from "./ui/separator";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { CheckMark, ClipBoard } from "./CopyClip";
+import { CheckMark, ClipBoard } from "./ui/CopyClip";
+
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -69,20 +70,20 @@ export function MainForm() {
     router.push(`chat/${roomId}?username=${username}`);
   }
 
-    async function handlePasteRoomId() {
-      try {
-        const text = await navigator.clipboard.readText();
-        setRoomId(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1000); // Reset copied status after 1 second
-      } catch (error) {
-        console.error("Failed to paste from clipboard:", error);
-        toast({
-          title: "Error",
-          description: "Failed to paste the chat ID.",
-        });
-      }
+  async function handlePasteRoomId() {
+    try {
+      const text = await navigator.clipboard.readText();
+      setRoomId(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1000); // Reset copied status after 1 second
+    } catch (error) {
+      console.error("Failed to paste from clipboard:", error);
+      toast({
+        title: "Error",
+        description: "Failed to paste the chat ID.",
+      });
     }
+  }
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -136,8 +137,7 @@ export function MainForm() {
                     variant={"outline"}
                     size={"icon"}
                     onClick={handlePasteRoomId}
-                    className="border size-[22px] dark:border-neutral-800 rounded-md backdrop-blur-2xl ml-1"
-                    aria-label={copied ? "Chat ID pasted" : "Paste Chat ID"}
+                    className="border size-[25px] dark:border-neutral-800 rounded-md backdrop-blur-2xl ml-3"
                   >
                     {copied ? <CheckMark /> : <ClipBoard />}
                   </Button>

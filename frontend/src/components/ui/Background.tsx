@@ -1,6 +1,6 @@
 import React from "react";
 
-import FlickeringGrid from "./ui/FlickeringGrid";
+import FlickeringGrid from "./FlickeringGrid";
 
 export default function Background() {
   return (

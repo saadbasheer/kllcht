@@ -14,19 +14,30 @@ const io = new Server(server, {
   },
 });
 
+const rooms = {}; // Store users in each room
+
 io.on("connection", (socket) => {
   console.log("A user connected");
 
   socket.on("joinRoom", ({ roomId, username }) => {
     socket.join(roomId);
+
+    // Add user to the room
+    if (!rooms[roomId]) {
+      rooms[roomId] = [];
+    }
+    rooms[roomId].push(username);
     console.log(`${username} joined room ${roomId}`);
 
-    // Notify the room that the user joined
+    // Notify the room about the user joining
     socket.to(roomId).emit("systemMessage", `${username} has joined the room`);
+
+    // Broadcast the updated user list to the room
+    io.to(roomId).emit("roomData", { users: rooms[roomId] });
   });
 
   socket.on("chatMessage", ({ roomId, username, message }) => {
-    // Broadcast regular chat messages to the room
+    // Broadcast the message to the room
     io.to(roomId).emit("message", { username, message });
   });
 
@@ -34,12 +45,21 @@ io.on("connection", (socket) => {
     socket.leave(roomId);
     console.log(`${username} left room ${roomId}`);
 
-    // Notify the room that the user left
+    // Remove user from the room
+    if (rooms[roomId]) {
+      rooms[roomId] = rooms[roomId].filter((user) => user !== username);
+    }
+
+    // Notify the room about the user leaving
     socket.to(roomId).emit("systemMessage", `${username} has left the room`);
+
+    // Broadcast the updated user list to the room
+    io.to(roomId).emit("roomData", { users: rooms[roomId] });
   });
 
   socket.on("disconnect", () => {
     console.log("A user disconnected");
+    // You can implement logic here to handle user disconnects if needed
   });
 });
 
