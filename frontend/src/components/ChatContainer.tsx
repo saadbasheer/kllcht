@@ -15,7 +15,7 @@ import {
 import CopyToClipboard from "@/components/CopyClip";
 
 interface Message {
-  username: ReactNode;
+  username?: ReactNode;
   message: string;
   isCurrentUser?: boolean;
   time: string;
