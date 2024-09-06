@@ -37,6 +37,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
         onMouseLeave={() => setShowTooltip(false)}
         onTouchStart={() => {
           setShowTooltip(true);
+          setTimeout(() => setShowTooltip(false), 1000);
         
         }}
         className="border size-[17px] dark:border-neutral-800 rounded-md backdrop-blur-2xl z-[2]"
