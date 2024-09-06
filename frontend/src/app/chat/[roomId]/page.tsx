@@ -95,17 +95,10 @@ export default function Chat({
       ]);
     });
 
+    
     newSocket.on("chatKilled", () => {
       setMessages((prevMessages) => [
         ...prevMessages,
-        {
-          message: "This chat has been killed. You will be redirected shortly.",
-          isSystemMessage: true,
-          time: new Date().toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-        },
       ]);
       setTimeout(() => {
         router.push("/");

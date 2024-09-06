@@ -65,7 +65,7 @@ io.on("connection", (socket) => {
     // Send system message to the room
     io.to(roomId).emit(
       "systemMessage",
-      `${username} has initiated killchat. This chat will now be disposed.`
+      `${username} has initiated /kllcht. This chat will now be disposed.`
     );
 
     // Notify all clients in the room to redirect or handle chat termination
