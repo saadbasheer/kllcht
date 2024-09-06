@@ -20,6 +20,7 @@ import { Separator } from "./ui/separator";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { CheckMark, ClipBoard } from "./CopyClip";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -35,6 +36,7 @@ export function MainForm() {
   const { toast } = useToast();
   const [roomId, setRoomId] = useState("");
   const [username, setUsername] = useState("");
+  const [copied, setCopied] = useState(false);
   const router = useRouter();
 
   function generateRoomID(length = 8) {
@@ -66,6 +68,21 @@ export function MainForm() {
     }
     router.push(`chat/${roomId}?username=${username}`);
   }
+
+    async function handlePasteRoomId() {
+      try {
+        const text = await navigator.clipboard.readText();
+        setRoomId(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1000); // Reset copied status after 1 second
+      } catch (error) {
+        console.error("Failed to paste from clipboard:", error);
+        toast({
+          title: "Error",
+          description: "Failed to paste the chat ID.",
+        });
+      }
+    }
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -113,7 +130,18 @@ export function MainForm() {
                 <FormMessage />
               </FormItem>
               <FormItem>
-                <FormLabel>Enter Chat ID</FormLabel>
+                <FormLabel>
+                  Enter Chat ID
+                  <Button
+                    variant={"outline"}
+                    size={"icon"}
+                    onClick={handlePasteRoomId}
+                    className="border size-[22px] dark:border-neutral-800 rounded-md backdrop-blur-2xl ml-1"
+                    aria-label={copied ? "Chat ID pasted" : "Paste Chat ID"}
+                  >
+                    {copied ? <CheckMark /> : <ClipBoard />}
+                  </Button>
+                </FormLabel>
                 <div className="flex gap-2">
                   <RoomtIdInput roomId={roomId} setRoomId={setRoomId} />
                   <Button
@@ -131,7 +159,12 @@ export function MainForm() {
             </>
           )}
         />
-        <Button onClick={() => {handleCreateRoom()}} className="hover:drop-shadow-lg w-full">
+        <Button
+          onClick={() => {
+            handleCreateRoom();
+          }}
+          className="hover:drop-shadow-lg w-full"
+        >
           Create a Room
         </Button>
       </form>

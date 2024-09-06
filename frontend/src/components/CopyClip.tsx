@@ -54,7 +54,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
   );
 };
 
-const ClipBoard: React.FC = () => (
+export const ClipBoard: React.FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -72,7 +72,7 @@ const ClipBoard: React.FC = () => (
   </svg>
 );
 
-const CheckMark: React.FC = () => (
+export const CheckMark: React.FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
