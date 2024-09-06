@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -19,23 +20,22 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", ({ roomId, username }) => {
     socket.join(roomId);
     console.log(`${username} joined room ${roomId}`);
-    socket.to(roomId).emit("message", {
-      username: "System",
-      message: `${username} has joined the room`,
-    });
+
+    // Notify the room that the user joined
+    socket.to(roomId).emit("systemMessage", `${username} has joined the room`);
   });
 
   socket.on("chatMessage", ({ roomId, username, message }) => {
+    // Broadcast regular chat messages to the room
     io.to(roomId).emit("message", { username, message });
   });
 
   socket.on("leaveRoom", ({ roomId, username }) => {
     socket.leave(roomId);
     console.log(`${username} left room ${roomId}`);
-    socket.to(roomId).emit("message", {
-      username: "System",
-      message: `${username} has left the room`,
-    });
+
+    // Notify the room that the user left
+    socket.to(roomId).emit("systemMessage", `${username} has left the room`);
   });
 
   socket.on("disconnect", () => {

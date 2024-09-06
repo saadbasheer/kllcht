@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "kll/Chat - Create disposable communication channels",
+  title: "/kllcht - Disposable communication channels",
   description: "Create disposable communication channels",
 };
 

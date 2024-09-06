@@ -17,6 +17,9 @@ import CopyToClipboard from "@/components/CopyClip";
 interface Message {
   username: ReactNode;
   message: string;
+  isCurrentUser?: boolean;
+  time: string;
+  isSystemMessage?: boolean;
 }
 
 type ChatContainerProps = {
@@ -61,7 +64,7 @@ export default function ChatContainer({
           <h1 className="text-white font-semibold font-mono lg:text-xl">
             {roomId}
           </h1>
-          <CopyToClipboard text={roomId}  />
+          <CopyToClipboard text={roomId} />
         </div>
         <div className="flex items-center space-x-4">
           <Users className="w-5 h-5 text-gray-400" aria-hidden="true" />
@@ -81,18 +84,40 @@ export default function ChatContainer({
       <ScrollArea className="flex-grow overflow-y-auto">
         <div className="p-4 space-y-6">
           {messages.map((msg, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex items-start space-x-2">
-                <div className="space-y-1">
-                  <div className="flex items-center space-x-2">
-                    <span className="font-semibold">{msg.username}</span>
-                    <span className="text-xs text-gray-400">{time}</span>
-                  </div>
-                  <p className="text-sm">{msg.message}</p>
+            <div key={`${msg.username}-${index}`} className="mb-2">
+              {msg.isSystemMessage ? (
+                <div className="text-center text-gray-400 italic">
+                  <span className="text-xs text-gray-500">{msg.time}</span> -{" "}
+                  {msg.message}
                 </div>
-              </div>
+              ) : (
+                <div
+                  className={`flex ${
+                    msg.isCurrentUser ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[80%] ${
+                      msg.isCurrentUser
+                        ? "bg-red-900 text-white"
+                        : "bg-gray-800 text-gray-100"
+                    } rounded-lg p-2`}
+                  >
+                    <div className="flex items-baseline space-x-2 mb-1">
+                      {!msg.isCurrentUser && (
+                        <span className="font-semibold text-sm">
+                          {msg.username}
+                        </span>
+                      )}
+                      <span className="text-xs text-gray-400">{msg.time}</span>
+                    </div>
+                    <p className="text-sm">{msg.message}</p>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
+
           <div ref={endOfMessagesRef} />
         </div>
       </ScrollArea>
