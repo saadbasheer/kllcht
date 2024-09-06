@@ -4,10 +4,7 @@ import React, { ReactNode, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Hash,
-  PlusCircle,
-} from "lucide-react";
+import { Hash, PlusCircle } from "lucide-react";
 
 import HyperText from "./ui/hyper-text";
 import CopyToClipboard from "./ui/CopyClip";

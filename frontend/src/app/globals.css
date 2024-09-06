@@ -2,7 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+.vt323-regular {
+  font-family: "VT323", monospace;
+  font-weight: 500;
+  font-style: normal;
+}
 
+@keyframes colorChange {
+  0% {
+    color: inherit; /* Original color */
+  }
+  50% {
+    color: #dc2626; /* Replace with your primary color */
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+@keyframes colorChangeQuick {
+  0% {
+    color: inherit; /* Original color */
+  }
+  50% {
+    color: #dc2626; /* Replace with your primary color */
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+.animate-color-change {
+  animation: colorChange 2s infinite; /* Slow color change */
+  transition: all 0.2s ease-in-out;
+}
+
+.animate-color-change-quick {
+  animation: colorChangeQuick 0.5s infinite; /* Fast color change */
+  transition: all 0.1s ease-in-out;
+}
 
 @layer base {
   :root {

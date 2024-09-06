@@ -6,6 +6,8 @@ import { io, Socket } from "socket.io-client";
 import { Button } from "@/components/ui/button";
 import ChatContainer from "@/components/ChatContainer";
 import Footer from "@/components/Footer";
+import H1 from "@/components/H1";
+import KillChatButton from "@/components/KillChatButton";
 
 interface Message {
   username?: ReactNode;
@@ -29,15 +31,11 @@ export default function Chat({
   const username = searchParams.get("username") ?? "";
   const roomId = params.roomId;
 
-
   const killChat = () => {
     if (socket) {
       socket.emit("killChat", { roomId, username });
     }
   };
-
-
-
 
   useEffect(() => {
     const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -97,24 +95,22 @@ export default function Chat({
       ]);
     });
 
-
-       newSocket.on("chatKilled", () => {
-         setMessages((prevMessages) => [
-           ...prevMessages,
-           {
-             message:
-               "This chat has been killed. You will be redirected shortly.",
-             isSystemMessage: true,
-             time: new Date().toLocaleTimeString("en-US", {
-               hour: "2-digit",
-               minute: "2-digit",
-             }),
-           },
-         ]);
-         setTimeout(() => {
-           router.push("/");
-         }, 5000); // Redirect after 5 seconds
-       });
+    newSocket.on("chatKilled", () => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          message: "This chat has been killed. You will be redirected shortly.",
+          isSystemMessage: true,
+          time: new Date().toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        },
+      ]);
+      setTimeout(() => {
+        router.push("/");
+      }, 5000); // Redirect after 5 seconds
+    });
 
     // Listen for user list updates
     newSocket.on("roomData", ({ users }) => {
@@ -142,26 +138,7 @@ export default function Chat({
 
   return (
     <div className="flex flex-col items-center justify-center h-screen py-20 lg:p-20">
-      <Button
-        variant="outline"
-        onClick={killChat}
-        className="text-primary mb-4"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-      </Button>
+      <KillChatButton killChat={killChat} />
       <ChatContainer
         sendMessage={sendMessage}
         inputMessage={inputMessage}
