@@ -154,7 +154,7 @@ export default function ChatContainer({
             onClick={() => sendMessage(inputMessage)}
             size={"sm"}
             variant="default"
-            className="text-gray-400"
+            className="text-white hover:text-gray-300"
             aria-label="Send message"
           >
             <svg
