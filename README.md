@@ -11,7 +11,10 @@
 - **Disposable Rooms**: Initiate the `/kllcht` sequence to send a system message notifying users that the room will be disposed of soon.
 - **Aesthetic Design**: Extra attention has been given to font color, layout, and responsiveness to create a visually striking and enjoyable experience.
 
-![GIF](./assets/blink.gif)
+
+<p align="center">
+  <img src="./assets/blink.gif"  width="500" />
+</p>
 
 ## Tech Stack
 
