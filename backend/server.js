@@ -9,6 +9,7 @@ app.use(cors());
 
 // dont you sleep now
 app.get("/health", (req, res) => {
+  console.log(`Health check pinged at ${new Date().toISOString()}`);
   res.status(200).send("OK");
 });
 
