@@ -6,6 +6,12 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
+
+// dont you sleep now
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
