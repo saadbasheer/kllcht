@@ -15,6 +15,7 @@ frontend/.next/
 
 # testing
 /coverage
+git fetch origin
 
 # next.js
 /.next/
