@@ -1,7 +1,7 @@
 
 ![Title](./assets/title.png)
 # /kllcht - Disposable Communication Channels
-/kllcht is a real-time chat application that lets you create **disposable communication channels**. It's designed with a focus on aesthetics, responsiveness, and seamless user experience. Whether you're creating a new chat room or joining an existing one, /kllcht delivers beautiful design and fluid interactions.
+/kllcht is a real-time chat application that lets you create **disposable communication channels**. It's designed with a focus on aesthetics, responsiveness, and seamless user experience. Whether you're creating a new chat room or joining an existing one, /kllcht delivers beautiful design and fluid interactions. Go ahead and try it out [here](https://kill-chat.vercel.app/)
 
 ## Features
 
